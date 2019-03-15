@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="webjars/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+<link rel="stylesheet" href="webjars/bootstrap/3.3.6/css/bootstrap.min.css" />
+</head>
+<body>
+   <div class="container">
+   
+       <button type="button" class="btn  btn-success nBtn">New Country</button>
+       
+     	<div class="card">
+            <div class="card-block">
+             <table class="table table-hover">
+               <thead>
+                 <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Capital</th>
+                    <th></th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <tr th:each="country :${data.content}">
+                    <td th:text="${country.id}"></td>
+                    <td th:text="${country.name}"></td>
+                    <td th:text="${country.capital}"></td>
+                    <td>
+                       <a th:href="@{delete/(id=${country.id})}" class="btn btn-danger dBtn">delete</a> 
+                       <a th:href="@{findOne/(id=${country.id})}" class="btn btn-primary eBtn">Edit</a>
+                    </td>
+                 </tr>
+               </tbody>
+               <tfoot>
+                 
+               </tfoot>
+             </table>
+             <hr />
+             <ul class="nav nav-pills">
+	             <li class="nav-item" th:each="i :${#numbers.sequence(0,data.totalPages-1)}">
+	              <a th:href="@{/(page=${i})}" class="nav-link" th:text="${i}" th:classappend="${currentPage}==${i}?'active':''"></a>
+	             </li>
+             </ul>
+   
+   			</div>
+   		</div>
+        
+        <div class="myForm">
+	        <form th:action="@{/save}" method="post">
+	           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        
+				          <div class="form-group">
+				            <label for="id" class="col-form-label">ID:</label>
+				            <input type="text" class="form-control" id="id" name="id" value="" />
+				          </div>
+				          <div class="form-group">
+				            <label for="name" class="col-form-label">Name:</label>
+				            <input type="text" class="form-control" id="name" name="name" value="" />
+				          </div>
+				          
+				           <div class="form-group">
+				            <label for="capital" class="col-form-label">Capital:</label>
+				            <input type="text" class="form-control" id="capital" name="capital" value="" />
+				          </div>
+				        
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <input type="submit" class="btn btn-primary" value="save" />
+				      </div>
+				    </div>
+				  </div>
+				</div>
+	        </form>
+        </div>
+        
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalCenterTitle">Delete Country</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p class="alert alert-danger">
+		          Are you sure you want to delete this country
+		        </p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <a href="" class="btn btn-danger" id="delRef">Delete</a>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+   
+   </div>
+</body>
+</html>
