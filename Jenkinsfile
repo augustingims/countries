@@ -22,7 +22,7 @@ pipeline {
 
         stage('Tests'){
             steps{
-                withMaven(jdk: 'OpenJdk13', maven: 'maven-3.6.3') {
+                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
                     sh label: 'tests', script: './mvnw clean test'
                 }
             }
@@ -30,7 +30,7 @@ pipeline {
 
         stage('Analyse de la qualité'){
             steps{
-                withMaven(jdk: 'OpenJdk13', maven: 'maven-3.6.3') {
+                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
                     withSonarQubeEnv('sonarqube'){
                         sh label: 'static code analysis', script: 'mvn clean package sonar:sonar -Dsonar.projectName=countries/${BRANCH_NAME} -Dsonar.projectKey=countries:${BRANCH_NAME}'
                     }
