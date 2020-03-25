@@ -7,11 +7,11 @@ pipeline {
 //
 //
 
-     environment {
+     /*environment {
  		PROJECT_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
 		PROJECT_ARTIFACT_ID = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
  		PROJECT_GROUP_ID = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
-     }
+     }*/
 
     stages{
         stage('Checkout'){
@@ -46,14 +46,14 @@ pipeline {
             }
         }*/
 
-        stage('Uploading artifacts on the releases repo'){
+        /*stage('Uploading artifacts on the releases repo'){
             when {
                 branch 'master'
             }
             steps{
                 nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "Contries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "Contries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
             }
-        }
+        }*/
 /*
         stage('Uploading artifacts on the snapshots repo'){
             when {
