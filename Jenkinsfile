@@ -31,8 +31,8 @@ pipeline {
         stage('Analyse de la qualité'){
             steps{
                 withMaven(jdk: 'openjdk13', maven: 'maven-3.6.3') {
-                    withSonarQubeEnv('px-sonarqube'){
-                        sh label: 'static code analysis', script: 'mvn clean package sonar:sonar -Dsonar.projectName=mjumbe-service/${BRANCH_NAME} -Dsonar.projectKey=mjumbe-service:${BRANCH_NAME}'
+                    withSonarQubeEnv('sonarqube'){
+                        sh label: 'static code analysis', script: 'mvn clean package sonar:sonar -Dsonar.projectName=countries/${BRANCH_NAME} -Dsonar.projectKey=countries:${BRANCH_NAME}'
                     }
                 }
             }
