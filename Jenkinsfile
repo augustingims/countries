@@ -7,11 +7,11 @@ pipeline {
 //
 //
 
-     /*environment {
+     environment {
  		PROJECT_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
 		PROJECT_ARTIFACT_ID = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
  		PROJECT_GROUP_ID = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
-     }*/
+     }
 
     stages{
         stage('Checkout'){
@@ -36,15 +36,15 @@ pipeline {
             }
         }
 
-        /*stage('Analyse de la qualité'){
+        stage('Analyse de la qualité'){
             steps{
                 withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
-                    withSonarQubeEnv('SonarQube'){
+                    withSonarQubeEnv('dev-sonarqube'){
                         sh label: 'static code analysis', script: 'mvn clean package sonar:sonar -Dsonar.projectName=countries/${BRANCH_NAME} -Dsonar.projectKey=countries:${BRANCH_NAME}'
                     }
                 }
             }
-        }*/
+        }
 
         /*stage('Uploading artifacts on the releases repo'){
             when {
