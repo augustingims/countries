@@ -28,20 +28,20 @@ pipeline {
             }
         }
 
+        stage('Packaging'){
+            steps{
+                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
+                    sh './mvnw clean package -Dskip.tests=true'
+                }
+            }
+        }
+
         stage('Analyse de la qualité'){
             steps{
                 withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
                     withSonarQubeEnv('SonarQube'){
                         sh label: 'static code analysis', script: 'mvn clean package sonar:sonar -Dsonar.projectName=countries/${BRANCH_NAME} -Dsonar.projectKey=countries:${BRANCH_NAME}'
                     }
-                }
-            }
-        }
-
-        stage('Packaging'){
-            steps{
-                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
-                    sh './mvnw clean package -Dskip.tests=true'
                 }
             }
         }
