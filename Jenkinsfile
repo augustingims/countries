@@ -8,9 +8,9 @@ pipeline {
 //
 
      environment {
- 		PROJECT_VERSION = sh script: 'mvn help:evaluate -Dexpression=project.version -q -DforceStdout', returnStdout: true
-		PROJECT_ARTIFACT_ID = sh script: 'mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout', returnStdout: true
- 		PROJECT_GROUP_ID = sh script: 'mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout', returnStdout: true
+ 		PROJECT_VERSION = "${POM_VERSION}"
+		PROJECT_ARTIFACT_ID = "${POM_ARTIFACTID}"
+ 		PROJECT_GROUP_ID = "${POM_GROUPID}"
      }
 
     stages{
