@@ -40,7 +40,7 @@ pipeline {
 
         stage('Packaging'){
             steps{
-                withMaven(jdk: 'OpenJdk13', maven: 'maven-3.6.3') {
+                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
                     sh './mvnw clean package -Dskip.tests=true'
                 }
             }
