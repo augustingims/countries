@@ -55,6 +55,21 @@ pipeline {
                 nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "countries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "Countries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
             }
         }
+
+        stage('Image docker Construction...'){
+         	when {
+         		branch 'master'
+             }
+             steps{
+             	script {
+	            	docker.withRegistry('http://registry.local', 'jenkins-registry-cred'){
+ 	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
+ 	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
+ 	            		dockerImage.push('${PROJECT_VERSION}')
+ 	            	}
+ 				}
+             }
+         }
 /*
         stage('Uploading artifacts on the snapshots repo'){
             when {
@@ -89,20 +104,6 @@ pipeline {
 //             }
 //         }
 
-//         stage('Image docker Construction...'){
-//         	when {
-//         		branch 'master'
-//             }
-//             steps{
-//             	script {
-// 	            	docker.withRegistry('https://registry.proxytix.com', 'px-jenkins-registry-cred'){
-// // 	            		def dockerImage = docker.build("${MJUMBE_SERVICE_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${MJUMBE_SERVICE_ARTIFACT_ID}-${MJUMBE_SERVICE_VERSION}.jar .")
-// 	            		def dockerImage = docker.build("${MJUMBE_SERVICE_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${MJUMBE_SERVICE_ARTIFACT_ID}-${MJUMBE_SERVICE_VERSION}.jar .")
-// 	            		dockerImage.push('${MJUMBE_SERVICE_VERSION}')
-// 	            	}
-// 				}
-//             }
-//         }
     }
 
 //     post{
