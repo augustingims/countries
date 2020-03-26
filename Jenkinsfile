@@ -8,9 +8,9 @@ pipeline {
 //
 
      environment {
- 		PROJECT_VERSION = "${POM_VERSION}"
-		PROJECT_ARTIFACT_ID = "${POM_ARTIFACTID}"
- 		PROJECT_GROUP_ID = "${POM_GROUPID}"
+ 		PROJECT_VERSION = readMavenPom().getVersion()
+		PROJECT_ARTIFACT_ID = readMavenPom().getArtifactId()
+ 		PROJECT_GROUP_ID = readMavenPom().getGroupId()
      }
 
     stages{
