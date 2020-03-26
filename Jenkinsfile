@@ -28,14 +28,6 @@ pipeline {
             }
         }
 
-        stage('Packaging'){
-            steps{
-                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
-                    sh './mvnw clean package -Dskip.tests=true'
-                }
-            }
-        }
-
         stage('Analyse de la qualité'){
             steps{
                 withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
@@ -46,14 +38,23 @@ pipeline {
             }
         }
 
-        /*stage('Uploading artifacts on the releases repo'){
+        stage('Packaging'){
+            steps{
+                withMaven(jdk: 'Jdk8', maven: 'maven-3.6.3') {
+                    sh './mvnw clean package -Dskip.tests=true'
+                }
+            }
+        }
+
+
+        stage('Uploading artifacts on the releases repo'){
             when {
                 branch 'master'
             }
             steps{
-                nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "Contries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "Contries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
+                nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "countries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "Contries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
             }
-        }*/
+        }
 /*
         stage('Uploading artifacts on the snapshots repo'){
             when {
