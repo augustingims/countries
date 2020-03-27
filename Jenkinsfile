@@ -55,13 +55,16 @@ pipeline {
             }
         }
 
+        stage('Test docker...'){
+            steps {
+                sh 'docker info'
+            }
+        }
+
         stage('Image docker Construction...'){
          	when {
          		branch 'master'
              }
-            steps {
-                sh 'docker info'
-            }
              steps{
              	script {
 	            	docker.withRegistry('http://registry:5000', 'jenkins-registry-cred'){
