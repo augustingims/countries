@@ -59,6 +59,9 @@ pipeline {
          	when {
          		branch 'master'
              }
+            steps {
+                sh 'docker info'
+            }
              steps{
              	script {
 	            	docker.withRegistry('http://registry.local', 'jenkins-registry-cred'){
