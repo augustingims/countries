@@ -55,12 +55,6 @@ pipeline {
             }
         }
 
-        /*stage('Test docker...'){
-            steps {
-                sh 'docker info'
-            }
-        }*/
-
         stage('Image docker Construction...'){
          	when {
          		branch 'master'
