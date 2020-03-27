@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-     /*tools{
-         'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
-     }*/
+     tools{
+         'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker-ce'
+     }
 
 
      environment {
@@ -61,7 +61,7 @@ pipeline {
              }
              steps{
              	script {
-	            	docker.withRegistry('http://registry:5000', 'jenkins-registry-cred'){
+	            	docker.withRegistry('http://registry.local', 'jenkins-registry-cred'){
  	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
  	            		dockerImage.push('${PROJECT_VERSION}')
  	            	}
