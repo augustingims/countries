@@ -81,33 +81,25 @@ pipeline {
                 not { branch 'master' }
             }
             steps{
-                nexusPublisher nexusInstanceId: "nexus.proxytix", nexusRepositoryId: "mjumbe-service-snapshots", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${MJUMBE_SERVICE_ARTIFACT_ID}-${MJUMBE_SERVICE_VERSION}.jar"]], mavenCoordinate: [artifactId: "mjumbe-service", groupId: "com.proxytix.commons.mjumbe", packaging: "jar", version: "${MJUMBE_SERVICE_VERSION}"]]]
+                nexusPublisher nexusInstanceId: "nexus.snapshots", nexusRepositoryId: "countries-snapshots", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "countries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
             }
         }
 
-        stage('Uploading artifacts on the releases repo'){
-            when {
-                branch 'master'
-            }
-            steps{
-                nexusPublisher nexusInstanceId: "nexus.proxytix", nexusRepositoryId: "mjumbe-service-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${MJUMBE_SERVICE_ARTIFACT_ID}-${MJUMBE_SERVICE_VERSION}.jar"]], mavenCoordinate: [artifactId: "mjumbe-service", groupId: "com.proxytix.commons.mjumbe", packaging: "jar", version: "${MJUMBE_SERVICE_VERSION}"]]]
-            }
-        }
 */
 
-//         stage('Image docker Construction...'){
-// //         	when {
-// //         		anyOf { branch pattern: 'feature*'; branch pattern:tin'develop*' }
-// //             }
-//             steps{
-//             	script {
-// 	            	docker.withRegistry('https://registry.proxytix.com', 'px-jenkins-registry-cred'){
-// 	            		def dockerImage = docker.build("${MJUMBE_SERVICE_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${MJUMBE_SERVICE_ARTIFACT_ID}-${MJUMBE_SERVICE_VERSION}.jar .")
-// 	            		dockerImage.push('${MJUMBE_SERVICE_VERSION}')
-// 	            	}
-// 				}
-//             }
-//         }
+       /*stage('Image docker Construction...'){
+         	when {
+         		anyOf { branch pattern: 'feature*'; branch pattern:tin'develop*' }
+             }
+             steps{
+             	script {
+ 	            	docker.withRegistry('http://registry.local'){
+ 	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
+ 	            		dockerImage.push('${PROJECT_VERSION}')
+ 	            	}
+ 				}
+             }
+         }*/
 
     }
 
