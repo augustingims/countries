@@ -72,7 +72,7 @@ pipeline {
 
          stage('Image docker deployment'){
              steps{
-                 sh "docker run -dit --name ${PROJECT_ARTIFACT_ID} -p 8000:80 registry.local/${PROJECT_ARTIFACT_ID}"
+                 sh "docker run -dit --name ${PROJECT_ARTIFACT_ID} -p 8000:80 registry.local/${PROJECT_ARTIFACT_ID}:latest"
              }
          }
 
