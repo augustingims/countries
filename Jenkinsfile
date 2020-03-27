@@ -67,9 +67,10 @@ pipeline {
              }
              steps{
              	script {
-	            	docker.withRegistry('http://registry:5000/v2', 'jenkins-registry-cred'){
+	            	docker.withRegistry('http://registry.local'){
  	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
- 	            		dockerImage.push('${PROJECT_VERSION}')
+ 	            		//dockerImage.push('${PROJECT_VERSION}')
+                        sh "docker tag ${PROJECT_ARTIFACT_ID} registry.local/${PROJECT_ARTIFACT_ID}:${PROJECT_VERSION}"
  	            	}
  				}
              }
