@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-     tools{
+     /*tools{
          'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker-ce'
-     }
+     }*/
 
 
      environment {
@@ -55,11 +55,11 @@ pipeline {
             }
         }
 
-        stage('Test docker...'){
+        /*stage('Test docker...'){
             steps {
                 sh 'docker info'
             }
-        }
+        }*/
 
         stage('Image docker Construction...'){
          	when {
@@ -74,6 +74,13 @@ pipeline {
  				}
              }
          }
+
+        post{
+            always{
+                echo 'Cleaning the workspace ...'
+                cleanWs notFailBuild: true
+            }
+        }
 /*
         stage('Uploading artifacts on the snapshots repo'){
             when {
@@ -110,10 +117,5 @@ pipeline {
 
     }
 
-//     post{
-//         always{
-//             echo 'Cleaning the workspace ...'
-//             cleanWs notFailBuild: true
-//         }
-//     }
+
 }
