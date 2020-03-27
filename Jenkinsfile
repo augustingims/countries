@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      /*tools{
-         'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker-ce'
+         'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
      }*/
 
 
@@ -75,12 +75,6 @@ pipeline {
              }
          }
 
-        post{
-            always{
-                echo 'Cleaning the workspace ...'
-                cleanWs notFailBuild: true
-            }
-        }
 /*
         stage('Uploading artifacts on the snapshots repo'){
             when {
@@ -117,5 +111,11 @@ pipeline {
 
     }
 
+    post{
+        always{
+            echo 'Cleaning the workspace ...'
+            cleanWs notFailBuild: true
+        }
+    }
 
 }
