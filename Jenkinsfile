@@ -64,6 +64,7 @@ pipeline {
 	            	docker.withRegistry('http://registry.local'){
  	            		def dockerImage = docker.build("${PROJECT_ARTIFACT_ID}","--build-arg	JAR_FILE=target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar .")
  	            		dockerImage.push('${PROJECT_VERSION}')
+                        dockerImage.push('latest')
  	            	}
  				}
              }
@@ -72,7 +73,7 @@ pipeline {
          stage('Image docker deployment'){
              steps{
                  script {
-                     docker.image('registry.local/${PROJECT_VERSION}').withRun('-d --name countries -p "8000:80"') {
+                     docker.image('registry.local/${PROJECT_ARTIFACT_ID}').withRun('--name countries -p "8000:80"') {
                         sh  "echo 'application started'"
                      }
                  }
