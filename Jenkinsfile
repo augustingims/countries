@@ -51,7 +51,7 @@ pipeline {
                 branch 'master'
             }
             steps{
-                nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "countries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "Countries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
+                nexusPublisher nexusInstanceId: "nexus.devops", nexusRepositoryId: "countries-releases", packages: [[$class: "MavenPackage", mavenAssetList: [[classifier: "", extension: "", filePath: "target/${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"]], mavenCoordinate: [artifactId: "countries", groupId: "com.example", packaging: "jar", version: "${PROJECT_VERSION}"]]]
             }
         }
 
