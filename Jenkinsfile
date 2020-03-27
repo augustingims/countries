@@ -72,11 +72,7 @@ pipeline {
 
          stage('Image docker deployment'){
              steps{
-                 script {
-                     docker.image('registry.local/${PROJECT_ARTIFACT_ID}').withRun('--name countries -p "8000:80"') {
-                        sh  "echo 'application started'"
-                     }
-                 }
+                 sh "docker run -dit --name ${PROJECT_ARTIFACT_ID} -p 8000:80 registry.local/${PROJECT_ARTIFACT_ID}"
              }
          }
 
